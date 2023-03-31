@@ -7,9 +7,9 @@ def home():
     cates = utils.load_categories()
     return render_template('index.html', categories = cates)
 
-@app.route("/test")
-def test():
-    return "Welcome to my website"
+@app.route("/medicalregister")
+def medical_register():
+    return render_template('medical-register.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
