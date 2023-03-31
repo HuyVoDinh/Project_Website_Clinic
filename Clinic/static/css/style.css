@@ -165,7 +165,7 @@ body {
 .form-style-3 label > span{
 	float: left;
 	width: 100px;
-	color: #F072A9;
+	color: #7279f0;
 	font-weight: bold;
 	font-size: 13px;
 	text-shadow: 1px 1px 1px #fff;
@@ -175,26 +175,26 @@ body {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	margin: 0px 0px 10px 0px;
-	border: 1px solid #FFD2D2;
+	border: 1px solid #d2d5ff;
 	padding: 20px;
-	background: #FFF4F4;
+	background: #d7e2ff;
 	box-shadow: inset 0px 0px 15px #FFE5E5;
 	-moz-box-shadow: inset 0px 0px 15px #FFE5E5;
-	-webkit-box-shadow: inset 0px 0px 15px #FFE5E5;
+	-webkit-box-shadow: inset 0px 0px 15px #7dd9cf;
 }
 .form-style-3 fieldset legend{
-	color: #FFA0C9;
-	border-top: 1px solid #FFD2D2;
-	border-left: 1px solid #FFD2D2;
-	border-right: 1px solid #FFD2D2;
+	color: #a0b4ff;
+	border-top: 1px solid #dfd2ff;
+	border-left: 1px solid #dfd2ff;
+	border-right: 1px solid #dfd2ff;
 	border-radius: 5px 5px 0px 0px;
 	-webkit-border-radius: 5px 5px 0px 0px;
 	-moz-border-radius: 5px 5px 0px 0px;
-	background: #FFF4F4;
+	background: #f4f4ff;
 	padding: 0px 8px 3px 8px;
 	box-shadow: -0px -1px 2px #F1F1F1;
 	-moz-box-shadow:-0px -1px 2px #F1F1F1;
-	-webkit-box-shadow:-0px -1px 2px #F1F1F1;
+	-webkit-box-shadow:-0px -1px 2px #f1f1f1;
 	font-weight: normal;
 	font-size: 12px;
 }
@@ -215,25 +215,25 @@ body {
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
-	border: 1px solid #FFC2DC;
+	border: 1px solid #c2c7ff;
 	outline: none;
-	color: #F072A9;
+	color: #9e72f0;
 	padding: 5px 8px 5px 8px;
 	box-shadow: inset 1px 1px 4px #FFD5E7;
 	-moz-box-shadow: inset 1px 1px 4px #FFD5E7;
-	-webkit-box-shadow: inset 1px 1px 4px #FFD5E7;
-	background: #FFEFF6;
+	-webkit-box-shadow: inset 1px 1px 4px #68c5e0;
+	background: #eff7ff;
 	width:50%;
 }
 .form-style-3  input[type=submit],
 .form-style-3  input[type=button]{
-	background: #EB3B88;
-	border: 1px solid #C94A81;
+	background: #3b9deb;
+	border: 1px solid #4a5dc9;
 	padding: 5px 15px 5px 15px;
-	color: #FFCBE2;
+	color: #d9cbff;
 	box-shadow: inset -1px -1px 3px #FF62A7;
 	-moz-box-shadow: inset -1px -1px 3px #FF62A7;
-	-webkit-box-shadow: inset -1px -1px 3px #FF62A7;
+	-webkit-box-shadow: inset -1px -1px 3px #62bfff;
 	border-radius: 3px;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
