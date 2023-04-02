@@ -12,5 +12,7 @@ def medical_register():
     return render_template('medical-register.html')
 
 if __name__ == "__main__":
+    from Clinic.admin import *
+
     app.run(debug=True)
 

@@ -1,38 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="{{url_for('static',filename='css/style.css')}}" rel="stylesheet"/>
-    <title>Homepage</title>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="logo">
-            <img src="https://iweb.tatthanh.com.vn/pic/3/blog/images/image(5340).png" alt="">
-        </div>
+{% extends 'layout/base.html' %}
+{% block content %}
 
-        <form class="p-3 mt-3">
-              <div class="box">
-                  <select>
-                    {% for c in categories %}
-                      <option value="{{c.id}}">{{c.type}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              <br><br>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="text" name="userName" id="userName" placeholder="Username">
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password">
-            </div>
-            <button class="btn mt-3">Login</button>
-        </form>
-        <div class="text-center fs-6">
-            <a href="#">Forget password?</a> or <a href="#">Sign up</a>
-        </div>
-    </div>
-</body>
-</html>
+{%endblock%}
+
