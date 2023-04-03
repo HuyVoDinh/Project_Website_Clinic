@@ -88,12 +88,11 @@ body {
 
 .wrapper a {
     text-decoration: none;
-    font-size: 0.8rem;
     color: #03A9F4;
 }
 
 .wrapper a:hover {
-    color: #039BE5;
+    color: #00000;
 }
 
 @media(max-width: 380px) {
@@ -243,4 +242,74 @@ body {
 .required{
 	color:red;
 	font-weight:normal;
+}
+
+.a-style-medical
+{
+    margin-right:20px;
+    box-shadow: none;
+    width: 10%;
+    height: 40px;
+    background-color: #03A9F4;
+    letter-spacing: 1.3px;
+
+}
+
+
+
+
+
+
+
+
+
+.container2 {
+	max-width: 80%;
+	margin-right:auto;
+	margin-left:auto;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+.table2 {
+	width:100%;
+	border:1px solid $color-form-highlight;
+}
+
+.table-header2 {
+	display:flex;
+	width:100%;
+	background:#000;
+	padding:($half-spacing-unit * 1.5) 0;
+}
+
+.table-row2 {
+	display:flex;
+	width:100%;
+	padding:($half-spacing-unit * 1.5) 0;
+    border: solid 1px;
+	&:nth-of-type(odd) {
+		background:#f4f4ff;
+	}
+}
+
+.table-data2, .header__item2 {
+	flex: 1 1 20%;
+	text-align:center;
+}
+
+.header__item2 {
+	text-transform:uppercase;
+}
+
+.filter__link2 {
+	color:white;
+	text-decoration: none;
+	position:relative;
+	display:inline-block;
+	padding-left:$base-spacing-unit;
+	padding-right:$base-spacing-unit;
+
+
 }
