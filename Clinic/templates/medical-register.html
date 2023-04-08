@@ -2,26 +2,40 @@
 {% block title %}Homepage{%endblock%}
 
 {% block content %}
+  {% if err_msg %}
+    <div class="alert alert-alert" role="alert">
+      Đăng ký không thành công. {{ err_msg }}
+    </div>
+  {% endif %}
+
+
   <div class="form-style-3 wrapper">
     <label>Đặt lịch hẹn</label>
-    <form>
-      <fieldset><legend>Số lượng đăng ký còn lại trong ngày của phòng khám: </legend>
+    <form method="post">
+      <fieldset><legend>Số lượng đăng ký còn lại trong ngày của phòng khám: {{ size }}</legend>
+        {% if size > 0 %}
       <label for="field1"><span>CCCD <span class="required">*</span></span><input type="text" class="input-field" name="cccd" value="" /></label>
       <label for="field2"><span>Họ và tên đệm <span class="required">*</span></span><input type="text" class="input-field" name="hotendem" value="" /></label>
       <label for="field3"><span>Tên <span class="required">*</span></span><input type="text" class="input-field" name="ten" value="" /></label>
       <label for="field4"><span>Giới tính <span class="required">*</span></span>
-        <select name="field4" class="select-field">
+        <select id="gioitinh" name="gioitinh" class="select-field">
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
       </label>
-      <label for="field5"><span>Year of birth <span class="required">*</span></span><input type="date" class="input-field" name="field3" value="" /></label>
+      <label for="field5"><span>Year of birth <span class="required">*</span></span><input type="date" class="input-field" name="ngaysinh" value="" /></label>
       <label for="field6"><span>Email</span><input type="text" class="input-field" name="Email" value="" /></label>
       <label for="field6"><span>Sdt</span><input type="text" class="input-field" name="Sdt" value="" /></label>
       <label for="field7"><span>Địa chỉ</span><input type="text" class="input-field" name="diachi" value="" /></label>
         <label><span> </span><input class="btn mt-3" type="submit" value="Xác nhận" /></label>
         <a class="" href="{{url_for('home')}}">Thoát</a>
       </fieldset>
+      {% else %}
+        <div class="alert alert-warning" role="alert">
+          Số lượng đăng ký khám trong ngày đã hết. Vui lòng quay lại vào ngày hôm sau.
+        </div>
+        <a class="" href="{{url_for('home')}}">Thoát</a>
+      {% endif %}
     </form>
   </div>
 {%endblock%}

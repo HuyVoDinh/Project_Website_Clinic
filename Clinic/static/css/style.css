@@ -313,3 +313,20 @@ body {
 
 
 }
+
+
+.wrapper .btn-2 {
+    box-shadow: none;
+    margin: 5px;
+    width: 90px;
+    height: 40px;
+    background-color: #03A9F4;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
+    letter-spacing: 1.3px;
+}
+
+.wrapper .btn-2:hover {
+    background-color: #039BE5;
+}

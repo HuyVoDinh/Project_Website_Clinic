@@ -31,19 +31,54 @@ def user_logout():
 
 @app.route('/customerlist')
 def customer_list():
-    return render_template('customer-list.html')
+    # current_customer_list = utils.load_current_customer_list()
+    return render_template('customer-list.html', )
 
 @login.user_loader
 def user_load(user_id):
     return utils.get_user_by_id(user_id)
 
-@app.route("/medicalregister")
+@app.route("/medicalregister", methods = ['get', 'post'])
 def medical_register():
-    return render_template('medical-register.html')
+    err_msg=""
+    current_customer_list = utils.number_current_customer_list()
+    current_customer_list = 40 - current_customer_list
+    if current_customer_list < 0:
+        current_customer_list = 0
+
+    if request.method.__eq__('POST'):
+        ho_khach = request.form.get('hotendem')
+        ten_khach = request.form.get('ten')
+        ngay_sinh = request.form.get('ngaysinh')
+        id_cccd = request.form.get('cccd')
+        dia_chi = request.form.get('diachi')
+        email = request.form.get('Email')
+        gioi_tinh = request.form.get('gioitinh')
+        if gioi_tinh == 'Male':
+            gioi_tinh = False
+        else:
+            gioi_tinh = True
+        sdt = request.form.get('Sdt')
+
+        try:
+            utils.add_examination(ho_khach,ten_khach,ngay_sinh,id_cccd,dia_chi,email,gioi_tinh,sdt)
+            return redirect(url_for('home'))
+        except Exception as ex:
+            err_msg = ex
+    return render_template('medical-register.html', size = current_customer_list, err_msg = err_msg)
 
 @app.route("/registerdirectly")
 def register_directly():
     return render_template('register-directly.html')
+
+@app.route("/paybill")
+def paybill():
+    return render_template('pay-bill.html')
+
+@app.route("/taophieukham")
+def taophieukham():
+    return render_template('taophieukham.html')
+
 
 if __name__ == "__main__":
     from Clinic.admin import *

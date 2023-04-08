@@ -124,11 +124,21 @@ class khachhang(BaseModel):
     dia_chi = Column(String(50))
     email = Column(String(50))
     gioi_tinh = Column(Boolean)
-    sdt = String(String(50))
+    lich_kham = Column(DateTime, default=datetime.date(datetime.now()))
+    sdt = Column(String(50))
+
 
     def __str__(self):
         return self.name
 
+
+
+
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
+        # db.create_all()
+        data = khachhang(ho_khach = "A", ten_khach = "B", ngay_sinh = datetime.date(datetime.now()), id_cccd= "1", dia_chi = "x",email = "a", gioi_tinh = 1, sdt = "1")
+
+        db.session.add(data)
+
+        db.session.commit()

@@ -1,9 +1,9 @@
 import hashlib
 import json
 import os.path
-
+from datetime import datetime
 from Clinic import app
-from Clinic.models import taikhoan
+from Clinic.models import *
 
 def read_json(path):
     with open(path,"r") as f:
@@ -21,3 +21,13 @@ def check_login(username, password):
 
 def get_user_by_id(user_id):
     return taikhoan.query.get(user_id)
+
+
+def number_current_customer_list():
+    return khachhang.query.filter(khachhang.lich_kham.__eq__(datetime.date(datetime.now()))).count()
+
+def add_examination(ho,ten,ngaysinh,cccd,diachi,email,gioitinh,sdt):
+    m_khachhang = khachhang(ho_khach = ho,ten_khach = ten, ngay_sinh = ngaysinh,id_cccd = cccd,dia_chi = diachi,email = email,gioi_tinh = gioitinh,sdt = sdt)
+    db.session.add(m_khachhang)
+    db.session.commit()
+
