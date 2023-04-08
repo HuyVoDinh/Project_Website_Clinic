@@ -40,18 +40,22 @@
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="#section_5">Bài viết</a>
                             </li>
-
+                            {% if current_user.is_authenticated and current_user.vaitro_id == 1 %}
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="{{url_for('medical_register')}}">Đăng ký khám bệnh</a>
+                            </li>
+                            {% else %}
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="{{url_for('medical_register')}}">Đặt lịch hẹn</a>
                             </li>
-
+                            {% endif %}
 
 
                         </ul>
                         {% if current_user.is_authenticated %}
                             <div class="d-none d-lg-block ms-lg-3">
                                 <li class="nav-item dropdown">
-                                <a class="btn custom-btn custom-border-btn" href="{{url_for('home')}}" role="button">Dang nhap duoc roi</a>
+                                <a class="btn custom-btn custom-border-btn" href="{{url_for('home')}}" role="button">{{current_user.ten_nguoi_dung}} - {{current_user.vaitro.ten_vai_tro}}</a>
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                     <li><a class="btn custom-btn custom-border-btn" href="{{url_for('user_logout')}}" role="button">Đăng xuất</a></li>
                                     <li><a class="btn custom-btn custom-border-btn" href="{{url_for('customer_list')}}" role="button">Danh sách khách hàng</a></li>

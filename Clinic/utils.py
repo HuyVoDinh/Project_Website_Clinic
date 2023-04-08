@@ -31,3 +31,6 @@ def add_examination(ho,ten,ngaysinh,cccd,diachi,email,gioitinh,sdt):
     db.session.add(m_khachhang)
     db.session.commit()
 
+def load_role():
+    return vaitro.query.filter().all()
+

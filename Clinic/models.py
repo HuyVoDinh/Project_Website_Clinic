@@ -30,6 +30,8 @@ class nhanvien(BaseModel):
 class vaitro(BaseModel):
     ten_vai_tro = Column(String(30))
 
+    taikhoan = relationship('taikhoan', backref='vaitro', lazy=True)
+
     def __str__(self):
         return self.name
 
@@ -38,6 +40,8 @@ class taikhoan(BaseModel, UserMixin):
     mat_khau = Column(String(30))
     hinh_anh = Column(String(255))
     trang_thai = Column(Boolean)
+
+    vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
 
     def __str__(self):
         return self.name
@@ -136,9 +140,9 @@ class khachhang(BaseModel):
 
 if __name__ == '__main__':
     with app.app_context():
-        # db.create_all()
-        data = khachhang(ho_khach = "A", ten_khach = "B", ngay_sinh = datetime.date(datetime.now()), id_cccd= "1", dia_chi = "x",email = "a", gioi_tinh = 1, sdt = "1")
-
-        db.session.add(data)
-
-        db.session.commit()
+        db.create_all()
+        # data = khachhang(ho_khach = "A", ten_khach = "B", ngay_sinh = datetime.date(datetime.now()), id_cccd= "1", dia_chi = "x",email = "a", gioi_tinh = 1, sdt = "1")
+        #
+        # db.session.add(data)
+        #
+        # db.session.commit()
