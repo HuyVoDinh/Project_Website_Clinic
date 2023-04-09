@@ -31,11 +31,20 @@ class nhanvien(BaseModel):
         return self.name
 
 
-class Vaitro(UserEnum):
+class Role(UserEnum):
     ADMIN = 1
     DOCTOR = 2
     NURSE = 3
     CASHIER = 4
+
+
+class vaitro(BaseModel):
+    ten_vai_tro = Column(String(30))
+
+    taikhoan = relationship('taikhoan', backref='vaitro', lazy=True)
+
+    def __str__(self):
+        return self.name
 
 
 class taikhoan(BaseModel, UserMixin):
@@ -43,7 +52,9 @@ class taikhoan(BaseModel, UserMixin):
     mat_khau = Column(String(30))
     hinh_anh = Column(String(255))
     trang_thai = Column(Boolean)
-    vai_tro = Column(Enum(Vaitro), default=Vaitro.ADMIN)
+    role = Column(Enum(Role), default=Role.ADMIN)
+
+    vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
 
     def __str__(self):
         return self.username

@@ -8,11 +8,11 @@ from Clinic.models import *
 
 class AuthenticatedAdmin(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.vai_tro == Vaitro.ADMIN
+        return current_user.is_authenticated and current_user.role == Role.ADMIN
 
 class TaiKhoanView(AuthenticatedAdmin):
     column_display_pk = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
     edit_modal = True
     column_searchable_list = ['ten_nguoi_dung']
@@ -20,7 +20,7 @@ class TaiKhoanView(AuthenticatedAdmin):
 
 class NhanVienView(AuthenticatedAdmin):
     column_display_pk = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
     edit_modal = True
     column_searchable_list = ['ten_nv']
@@ -28,28 +28,28 @@ class NhanVienView(AuthenticatedAdmin):
 
 class ThuocView(AuthenticatedAdmin):
     column_display_pk = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
     edit_modal = True
     column_searchable_list = ['ten_thuoc']
 
 class PhieuKhamView(AuthenticatedAdmin):
     column_display_pk = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
     can_export = True
     edit_modal = True
 
 class KhachHangView(AuthenticatedAdmin):
     column_display_pk = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
     edit_modal = True
     column_searchable_list = ['ten_khach']
 
 class HoaDonView(AuthenticatedAdmin):
     column_display_pk = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
     can_export = True
     edit_modal = True
@@ -57,7 +57,7 @@ class HoaDonView(AuthenticatedAdmin):
 class MyAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
-        if current_user.is_authenticated and current_user.vai_tro == Vaitro.ADMIN:
+        if current_user.is_authenticated and current_user.role == Role.ADMIN:
             return self.render('admin/index.html')
         return redirect(url_for('user_login'))
 

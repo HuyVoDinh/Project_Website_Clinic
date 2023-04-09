@@ -5,12 +5,7 @@ from datetime import datetime
 from Clinic import app
 from Clinic.models import *
 
-def read_json(path):
-    with open(path,"r") as f:
-        return json.load(f)
 
-def load_categories():
-    return read_json(os.path.join(app.root_path,'data/categories.json'))
 
 def check_login(username, password):
     # if username and password:
@@ -30,4 +25,12 @@ def add_examination(ho,ten,ngaysinh,cccd,diachi,email,gioitinh,sdt):
     m_khachhang = khachhang(ho_khach = ho,ten_khach = ten, ngay_sinh = ngaysinh,id_cccd = cccd,dia_chi = diachi,email = email,gioi_tinh = gioitinh,sdt = sdt)
     db.session.add(m_khachhang)
     db.session.commit()
+
+def load_medicine(kw = None):
+    if kw:
+        return thuoc.query.filter(thuoc.ten_thuoc.contains(kw))
+
+
+def load_role():
+    return vaitro.query.filter().all()
 

@@ -1,0 +1,70 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+<div class="form-style-3 wrapper">
+    <h3>Tạo Phiếu Khám</h3>
+    <label>phòng khám Trung Thành</label>
+    <form method="post" class="p-3 mt-3">
+        <fieldset>
+            <legend>Bác Sĩ: {{ current_user.ten_nguoi_dung }}</legend>
+            <hr style="border: 1px solid; color: black;">
+            <label for="field1"><span>CCCD Khách Hàng <span class="required">*</span></span><input type="text"
+                                                                                                   class="input-field"
+                                                                                                   name="ten" value=""/></label>
+            <label for="field2"><span>Triệu Chứng <span class="required">*</span></span><textarea
+                    class="input-field"></textarea></label>
+            <label for="field3"><span>Bệnh Chuẩn Đoán <span class="required">*</span></span><textarea
+                    class="input-field"></textarea></label>
+            <fieldset>
+                <legend>Danh Sách Thuốc Cần Dùng</legend>
+                <hr style="border: 1px solid; color: black;">
+                
+
+
+
+                <div class="table2">
+                    <div class="table-header2">
+                        <div class="header__item2">
+                            <lable id="name" class="filter__link2">Thao Tác</lable>
+                        </div>
+                        <div class="header__item2">
+                            <lable id="draws" class="filter__link2 filter__link--number2">Tên Thuốc</lable>
+                        </div>
+                        <div class="header__item2">
+                            <lable id="losses" class="filter__link2 filter__link--number2">Số Lượng</lable>
+                        </div>
+                        <div class="header__item2">
+                            <lable id="total" class="filter__link2 filter__link--number2">Đơn Vị</lable>
+                        </div>
+                        <div class="header__item2">
+                            <lable id="losses" class="filter__link2 filter__link--number2">Liều Dùng</lable>
+                        </div>
+                        <div class="header__item2">
+                            <lable id="total" class="filter__link2 filter__link--number2">Phương Pháp sử dụng</lable>
+                        </div>
+                    </div>
+
+                    <div class="table-content2">
+                        <div class="table-row2">
+                            <div class="table-data2">
+                                <input class="btn-2" type="submit" value="Xóa">
+                            </div>
+                            <div class="table-data2">0</div>
+                            <div class="table-data2"><label for="field1"><input type="text" class="input-field"
+                                                                                name="soLuong" value=""/></label></div>
+                            <div class="table-data2"><label for="field1"><input type="text" class="input-field"
+                                                                                name="donVi" value=""/></label></div>
+                            <div class="table-data2"><label for="field1"><input type="text" class="input-field"
+                                                                                name="lieuDung" value=""/></label></div>
+                            <div class="table-data2"><label for="field1"><textarea type="text" class="input-field"
+                                                                                   name="ppsd"
+                                                                                   value=""></textarea></label></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <a class="btn mt-3" href="#">Xác Nhận</a>
+            <a class="btn mt-3" href="{{url_for('home')}}">Thoát</a>
+    </form>
+</div>
+
+{%endblock%}

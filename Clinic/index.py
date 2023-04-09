@@ -1,11 +1,10 @@
 from Clinic import app, login
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect,session
 import utils
 from flask_login import login_user, logout_user
 
 @app.route("/")
 def home():
-    cates = utils.load_categories()
     return render_template('index.html')
 
 @app.route("/login", methods= ['get', 'post'])
@@ -75,9 +74,23 @@ def register_directly():
 def paybill():
     return render_template('pay-bill.html')
 
-@app.route("/taophieukham")
+@app.route("/taophieukham",  methods = ['get', 'post'])
 def taophieukham():
+
     return render_template('taophieukham.html')
+
+
+@app.route("/timkiemthuoc",  methods = ['get', 'post'])
+def timkiemthuoc():
+    kw = request.args.get('kw')
+    medicine_list = utils.load_medicine(kw)
+    return render_template('timkiemthuoc.html', ls = medicine_list)
+
+@app.route('/api/them_thuoc', methods=['post'])
+def them_thuoc():
+    id = ''
+    ten_thuoc = ''
+    gia = ''
 
 
 if __name__ == "__main__":
