@@ -26,9 +26,11 @@ def add_examination(ho,ten,ngaysinh,cccd,diachi,email,gioitinh,sdt):
     db.session.add(m_khachhang)
     db.session.commit()
 
+
 def load_medicine(kw = None):
     if kw:
         return thuoc.query.filter(thuoc.ten_thuoc.contains(kw))
+
 
 
 def load_role():

@@ -40,6 +40,7 @@
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="#section_5">Bài viết</a>
                             </li>
+
                             {% if current_user.is_authenticated %}
                                 {% if current_user.vaitro_id == 1 %}
                                 <li class="nav-item">
@@ -58,6 +59,15 @@
                                     <a class="nav-link click-scroll" href="{{url_for('medical_register')}}">Đặt lịch hẹn</a>
                                 </li>
                                 {% endif %}
+
+                            {% if current_user.is_authenticated and current_user.vaitro_id == 1 %}
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="{{url_for('medical_register')}}">Đăng ký khám bệnh</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="{{url_for('medical_register')}}">Đặt lịch hẹn</a>
+                            </li>
                             {% endif %}
 
 

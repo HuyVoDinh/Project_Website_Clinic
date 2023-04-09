@@ -9,8 +9,8 @@
         <form method="post" class="p-3 mt-3">
               <div class="box">
                   <select>
-                    {% for c in categories %}
-                      <option value="{{c.id}}">{{c.type}}</option>
+                    {% for rl in role_list %}
+                      <option value="{{rl.id}}">{{rl.ten_vai_tro}}</option>
                     {% endfor %}
                   </select>
                 </div>

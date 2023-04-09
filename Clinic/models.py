@@ -56,6 +56,8 @@ class taikhoan(BaseModel, UserMixin):
 
     vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
 
+    vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
+
     def __str__(self):
         return self.username
 
@@ -166,3 +168,4 @@ if __name__ == '__main__':
         # db.session.add(data)
         #
         # db.session.commit()
+

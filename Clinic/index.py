@@ -10,6 +10,7 @@ def home():
 @app.route("/login", methods= ['get', 'post'])
 def user_login():
     err_msg = ''
+    role_list = utils.load_role()
     if request.method.__eq__('POST'):
         username = request.form.get('username')
         password = request.form.get('password')
@@ -21,7 +22,7 @@ def user_login():
         else:
             err_msg = "Sai thông tin tài khoản hoặc mật khẩu"
 
-    return render_template('login.html',err_msg = err_msg)
+    return render_template('login.html',err_msg = err_msg, role_list = role_list)
 
 @app.route('/user-logout')
 def user_logout():
