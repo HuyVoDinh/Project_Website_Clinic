@@ -10,162 +10,189 @@ from flask_login import UserMixin
 
 class BaseModel(db.Model):
     __abstract__ = True
+
     id = Column(Integer, primary_key=True, autoincrement=True)
 
-
-class nhanvien(BaseModel):
-    __tablename__ = 'nhanvien'
-    ngay_lam_viec = Column(DateTime)
-    kinh_nghiem = Column(Float)
-    chuc_vu = Column(String(255))
-    hinh_anh = Column(String(255))
-    ten_nv = Column(String(30))
-    ho_nv = Column(String(30))
-    ngay_sinh = Column(DateTime)
-    id_cccd = Column(Integer)
-    dia_chi = Column(String(255))
+class NhanVien(BaseModel):
+    # __tablename__ = 'nhanvien'
+    # nv_id = Column(Integer, primary_key=True, autoincrement=True)
+    ngay_lam_viec = Column(DateTime, default=datetime.now())
+    kinh_nghiem = Column(Float, default=0)
+    chuc_vu = Column(String(255), nullable=False)
+    hinh_anh = Column(String(255), nullable=False)
+    ten_nv = Column(String(30), nullable=False)
+    ho_nv = Column(String(30), nullable=False)
+    ngay_sinh = Column(DateTime, default=datetime.now())
+    id_cccd = Column(Integer, nullable=False)
+    dia_chi = Column(String(255), nullable=False)
     email = Column(String(255))
-    gioi_tinh = Column(Boolean)
+    gioi_tinh = Column(Boolean, default=True)
+    taikhoan = relationship('TaiKhoan', backref='NhanVien', lazy=True)
+    yTa = relationship('YTa', backref='NhanVien', lazy=True)
+    thuNgan = relationship('ThuNgan', backref='NhanVien', lazy=True)
+    qtv = relationship('QTV', backref='NhanVien', lazy=True)
+
+
+    def __str__(self):
+        return self.name
+
+class BacSi(BaseModel):
+
+    bs_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+class YTa(BaseModel):
+    yt_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
+    def __str__(self):
+        return self.name
+
+class ThuNgan(BaseModel):
+    tn_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
+    hoadon = relationship('HoaDonThuoc', backref='thungan', lazy=True)
+
+
+    def __str__(self):
+         return self.name
+#
+#
+class QTV(BaseModel):
+    qtv_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
+    dsquydinh = relationship('QuyDinh', backref='qtv', lazy=True)
+    def __str__(self):
+        return self.name
+
+class VaiTro(BaseModel):
+    #VaiTro_id = Column(Integer, primary_key=True, autoincrement=True)
+    ten_vai_tro = Column(String(30))
+    #taikhoan = relationship('TaiKhoan', backref='VaiTro', lazy=True)
+
+    def __str__(self):
+        return self.name
+
+
+class TaiKhoan(BaseModel, UserMixin):
+    #taikhoan_id = Column(Integer, primary_key=True, autoincrement=True)
+    ten_nguoi_dung = Column(String(30), nullable=False)
+    mat_khau = Column(String(30), nullable=False)
+    hinh_anh = Column(String(255))
+    trang_thai = Column(Boolean, default=True)
+    vaitro_id = Column(Integer, ForeignKey(VaiTro.id), nullable=False)
+    # nhanvien = relationship('NhanVien', backref='TaiKhoan', lazy=True)
+    nhanvien_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
+    def __str__(self):
+        return self.name
+
+class LoaiThuoc(BaseModel):
+    # loaithuoc_id = Column(Integer, primary_key=True, autoincrement=True)
+    ten_loai_thuoc = Column(String(100), nullable=False)
+    thuoc = relationship('Thuoc', backref='LoaiThuoc', lazy=True)
+
+    def __str__(self):
+        return self.name
+class Thuoc(BaseModel):
+    # thuoc_id = Column(Integer, primary_key=True, autoincrement=True)
+    ten_thuoc = Column(String(30), nullable=False)
+    so_luong = Column(Integer, default=0)
+    gia = Column(Float, default=0)
+    ngay_nhap = Column(DateTime, default=datetime.now())
+    lieu_luong = Column(String(255), nullable=False)
+    nha_san_xuat = Column(String(255), nullable=False)
+    mo_ta = Column(Text)
+    loaithuoc_id = Column(Integer, ForeignKey(LoaiThuoc.id), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+
+
+class KhachHang(BaseModel):
+    # khach_id = Column(Integer, primary_key=True, autoincrement=True)
+    ho_khach = Column(String(30), nullable=False)
+    ten_khach = Column(String(30), nullable=False)
+    #ngay_sinh = Column(DateTime, default=datetime.date())
+    id_cccd = Column(String(50), nullable=False)
+    dia_chi = Column(String(50))
+    email = Column(String(50))
+    gioi_tinh = Column(Boolean, default=True)
+    sdt = Column(String(50))
+
+    # tailieu = relationship('TaiLieu', backref='khachhang', lazy=True)
+
+    def __str__(self):
+        return self.name
+
+
+
+class TaiLieu(BaseModel):
+    # id = Column(Integer, primary_key=True, autoincrement=True)
+    ngay_tao = Column(DateTime, default=datetime.now())
+    loai_tai_lieu = Column(String(100))
+    khachhang_id = Column(Integer, ForeignKey(KhachHang.id), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+
+class ChiTietPhieuKham(db.Model):
+    thuoc = Column('thuoc_id', Integer, ForeignKey(Thuoc.id), nullable=False, primary_key=True)
+    tailieu = Column('tailieu_id', Integer, ForeignKey(TaiLieu.id), nullable=False, primary_key=True)
+    so_luong = Column(Integer, default=0)
+    lieu_luong = Column(Text)
+    cach_su_dung = Column(Text)
+
+    def __str__(self):
+        return self.name
+
+
+class PhieuKhamBenh(BaseModel):
+    # id = Column(Integer, ForeignKey('TaiLieu.id'), primary_key=True)
+    trieu_chung = Column(Text)
+    chan_doan = Column(Text)
+
+    bs_id = Column(Integer, ForeignKey(BacSi.id))
+    hoadon = relationship('HoaDonThuoc', backref='phieukhambenh', lazy=True)
+    dsthuoc = relationship('Thuoc', secondary='ChiTietPhieuKham', backref='dsphieukhambenh', lazy=True)
+
+    def __str__(self):
+        return self.name
+
+
+class HoaDonThuoc(BaseModel):
+
+    gia_thuoc = Column(Float, default=0, nullable=False)
+    gia_kham_benh = Column(Float, default=0, nullable=False)
+    tong_hoa_don = Column(Float, default=0, nullable=False)
+
+    thungnan_id = Column(Integer, ForeignKey(ThuNgan.id), nullable=False)
+    phieukham_id = Column(Integer, ForeignKey(PhieuKhamBenh.id), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+
+class QuyDinh(BaseModel):
+
+    ten = Column(String(50), nullable=False)
+    mo_ta = Column(String(255))
+    ngay_tao = Column(DateTime, default=datetime.now())
+    trang_thai = Column(Boolean, default=True)
+
+    qtv_id = Column(Integer, ForeignKey(QTV.id), nullable=False)
 
     def __str__(self):
         return self.name
 
 
 class Role(UserEnum):
-    ADMIN = 1
-    DOCTOR = 2
-    NURSE = 3
+    ADMIN = 1,
+    NURSE = 2,
+    DOCTOR = 3,
     CASHIER = 4
-
-
-class vaitro(BaseModel):
-    ten_vai_tro = Column(String(30))
-
-    taikhoan = relationship('taikhoan', backref='vaitro', lazy=True)
-
-    def __str__(self):
-        return self.name
-
-
-class taikhoan(BaseModel, UserMixin):
-    ten_nguoi_dung = Column(String(30))
-    mat_khau = Column(String(30))
-    hinh_anh = Column(String(255))
-    trang_thai = Column(Boolean)
-    role = Column(Enum(Role), default=Role.ADMIN)
-
-    vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
-
-    vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
-
-    def __str__(self):
-        return self.username
-
-
-class bacsi(BaseModel):
-    nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
-
-    def __str__(self):
-        return self.name
-
-
-class yta(BaseModel):
-    nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
-
-    def __str__(self):
-        return self.name
-
-
-class thungan(BaseModel):
-    nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
-
-    def __str__(self):
-        return self.name
-
-
-class QTV(BaseModel):
-    nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
-
-    def __str__(self):
-        return self.name
-
-
-class thuoc(BaseModel):
-    ten_thuoc = Column(String(30))
-    so_luong = Column(Integer)
-    gia = Column(Float)
-    ngay_nhap = Column(Integer)
-    lieu_luong = Column(String(255))
-    nha_san_xuat = Column(String(255))
-    mo_ta = Column(Text)
-
-    def __str__(self):
-        return self.name
-
-
-class loaithuoc(BaseModel):
-    ten_loai_thuoc = Column(String(100))
-
-    def __str__(self):
-        return self.name
-
-
-class tailieu(BaseModel):
-    ngay_tao = Column(DateTime)
-    loai_tai_lieu = Column(String(50))
-
-    def __str__(self):
-        return self.name
-
-
-class phieukhambenh(BaseModel):
-    trieu_chung = Column(Text)
-    chan_doan = Column(Text)
-
-    def __str__(self):
-        return self.name
-
-
-class hoadonthuoc(BaseModel):
-    gia_thuoc = Float
-    gia_kham_benh = Float
-    tong_hoa_don = Float
-
-    def __str__(self):
-        return self.name
-
-
-class quytrinh(BaseModel):
-    ten = Column(String(50))
-    mo_ta = Column(String(255))
-    ngay_tao = Column(DateTime)
-    trang_thai = Column(Boolean)
-
-    def __str__(self):
-        return self.name
-
-
-class khachhang(BaseModel):
-    ho_khach = Column(String(30))
-    ten_khach = Column(String(30))
-    ngay_sinh = Column(DateTime)
-    id_cccd = Column(String(50))
-    dia_chi = Column(String(50))
-    email = Column(String(50))
-    gioi_tinh = Column(Boolean)
-    lich_kham = Column(DateTime, default=datetime.date(datetime.now()))
-    sdt = Column(String(50))
-
-    def __str__(self):
-        return self.name
 
 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-        # data = khachhang(ho_khach = "A", ten_khach = "B", ngay_sinh = datetime.date(datetime.now()), id_cccd= "1", dia_chi = "x",email = "a", gioi_tinh = 1, sdt = "1")
-        #
-        # db.session.add(data)
-        #
-        # db.session.commit()
 

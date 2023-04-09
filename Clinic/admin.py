@@ -63,11 +63,11 @@ class MyAdminIndexView(AdminIndexView):
 
 
 admin = Admin(app=app, name="E-connerce Administration", template_mode='bootstrap4', index_view=MyAdminIndexView())
-admin.add_view(NhanVienView(nhanvien, db.session, name='Nhân Viên'))
-admin.add_view(TaiKhoanView(taikhoan, db.session, name='Tài Khoản'))
-admin.add_view(ThuocView(thuoc, db.session, name='Thuốc'))
-admin.add_view(HoaDonView(hoadonthuoc, db.session, name='Hóa đơn'))
-admin.add_view(PhieuKhamView(phieukhambenh, db.session, name='Phiếu Khám'))
-admin.add_view(KhachHangView(khachhang, db.session, name='Khách Hàng'))
+admin.add_view(NhanVienView(NhanVien, db.session, name='Nhân Viên'))
+admin.add_view(TaiKhoanView(TaiKhoan, db.session, name='Tài Khoản'))
+admin.add_view(ThuocView(Thuoc, db.session, name='Thuốc'))
+admin.add_view(HoaDonView(HoaDonThuoc, db.session, name='Hóa đơn'))
+admin.add_view(PhieuKhamView(PhieuKhamBenh, db.session, name='Phiếu Khám'))
+admin.add_view(KhachHangView(KhachHang, db.session, name='Khách Hàng'))
 
 # admin.add_view(ModelView(Account, db.session))
