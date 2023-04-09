@@ -1,0 +1,67 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+<div class="form-style-3 wrapper">
+    <h3>Tạo Phiếu Khám</h3>
+    <label>phòng khám Trung Thành</label>
+
+    <fieldset>
+        <legend>Bác Sĩ: {{ current_user.ten_nguoi_dung }}</legend>
+        <hr style="border: 1px solid; color: black;">
+
+
+        <legend>Danh Sách Thuốc Cần Dùng</legend>
+        <hr style="border: 1px solid; color: black;">
+        <form>
+            <label><span>Tìm Kiếm</span><input name="kw" type="search">
+                <input type="submit" value="Tìm kiếm">
+            </label>
+        </form>
+        {% if ls %}
+        <div class="table2">
+            <div class="table-header2">
+                <div class="header__item2">
+                    <lable id="name" class="filter__link2">Thao Tác</lable>
+                </div>
+                <div class="header__item2">
+                    <lable id="draws" class="filter__link2 filter__link--number2">Tên Thuốc</lable>
+                </div>
+                <div class="header__item2">
+                    <lable id="losses" class="filter__link2 filter__link--number2">Số Lượng</lable>
+                </div>
+                <div class="header__item2">
+                    <lable id="losses" class="filter__link2 filter__link--number2">Giá</lable>
+                </div>
+                <div class="header__item2">
+                    <lable id="total" class="filter__link2 filter__link--number2">Mô tả</lable>
+                </div>
+            </div>
+
+            <div class="table-content2">
+                {% for m in ls %}
+                <div class="table-row2">
+
+
+                    <div class="table-data2">
+                        <input class="btn-2" type="submit" value="Thêm">
+                    </div>
+                    <div class="table-data2">{{ m.ten_thuoc }}</div>
+                    <div class="table-data2">{{ m.so_luong }}</div>
+                    <div class="table-data2">{{ m.gia }}</div>
+                    <div class="table-data2">{{ m.mota }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            Tên thuốc không tồn tại.
+        </div>
+        {% endif %}
+
+        <a class="btn mt-3" href="#">Xem đơn thuốc</a>
+        <a class="btn mt-3" href="{{url_for('home')}}">Quay lại</a>
+
+</div>
+
+{%endblock%}

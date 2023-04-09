@@ -1,14 +1,17 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Boolean, Text
+from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Boolean, Text, Enum
 from sqlalchemy.orm import relationship
 from Clinic import db, app
+from enum import Enum as UserEnum
 from datetime import datetime
 from flask_login import UserMixin
+
 
 # category_id = Column(Integer,ForeignKey(Account.id))
 
 class BaseModel(db.Model):
     __abstract__ = True
     id = Column(Integer, primary_key=True, autoincrement=True)
+
 
 class nhanvien(BaseModel):
     __tablename__ = 'nhanvien'
@@ -27,6 +30,14 @@ class nhanvien(BaseModel):
     def __str__(self):
         return self.name
 
+
+class Role(UserEnum):
+    ADMIN = 1
+    DOCTOR = 2
+    NURSE = 3
+    CASHIER = 4
+
+
 class vaitro(BaseModel):
     ten_vai_tro = Column(String(30))
 
@@ -35,16 +46,21 @@ class vaitro(BaseModel):
     def __str__(self):
         return self.name
 
+
 class taikhoan(BaseModel, UserMixin):
     ten_nguoi_dung = Column(String(30))
     mat_khau = Column(String(30))
     hinh_anh = Column(String(255))
     trang_thai = Column(Boolean)
+    role = Column(Enum(Role), default=Role.ADMIN)
+
+    vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
 
     vaitro_id = Column(Integer, ForeignKey(vaitro.id), nullable=False)
 
     def __str__(self):
-        return self.name
+        return self.username
+
 
 class bacsi(BaseModel):
     nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
@@ -52,11 +68,13 @@ class bacsi(BaseModel):
     def __str__(self):
         return self.name
 
+
 class yta(BaseModel):
     nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
 
     def __str__(self):
         return self.name
+
 
 class thungan(BaseModel):
     nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
@@ -64,11 +82,13 @@ class thungan(BaseModel):
     def __str__(self):
         return self.name
 
+
 class QTV(BaseModel):
     nhanvien_id = Column(Integer, ForeignKey(nhanvien.id))
 
     def __str__(self):
         return self.name
+
 
 class thuoc(BaseModel):
     ten_thuoc = Column(String(30))
@@ -82,18 +102,21 @@ class thuoc(BaseModel):
     def __str__(self):
         return self.name
 
+
 class loaithuoc(BaseModel):
-    ten_loai_thuoc =  Column(String(100))
+    ten_loai_thuoc = Column(String(100))
 
     def __str__(self):
         return self.name
 
+
 class tailieu(BaseModel):
-    ngay_tao =  Column(DateTime)
+    ngay_tao = Column(DateTime)
     loai_tai_lieu = Column(String(50))
 
     def __str__(self):
         return self.name
+
 
 class phieukhambenh(BaseModel):
     trieu_chung = Column(Text)
@@ -102,6 +125,7 @@ class phieukhambenh(BaseModel):
     def __str__(self):
         return self.name
 
+
 class hoadonthuoc(BaseModel):
     gia_thuoc = Float
     gia_kham_benh = Float
@@ -109,6 +133,7 @@ class hoadonthuoc(BaseModel):
 
     def __str__(self):
         return self.name
+
 
 class quytrinh(BaseModel):
     ten = Column(String(50))
@@ -131,11 +156,8 @@ class khachhang(BaseModel):
     lich_kham = Column(DateTime, default=datetime.date(datetime.now()))
     sdt = Column(String(50))
 
-
     def __str__(self):
         return self.name
-
-
 
 
 if __name__ == '__main__':
@@ -146,3 +168,4 @@ if __name__ == '__main__':
         # db.session.add(data)
         #
         # db.session.commit()
+
