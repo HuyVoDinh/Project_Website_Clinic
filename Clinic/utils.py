@@ -21,6 +21,9 @@ def get_user_by_id(user_id):
 def number_current_customer_list():
     return KhachHang.query.filter(KhachHang.lich_kham.__eq__(datetime.date(datetime.now()))).count()
 
+def load_current_customer_list():
+    return KhachHang.query.filter(KhachHang.lich_kham.__eq__(datetime.date(datetime.now()))).all()
+
 def add_examination(ho,ten,ngaysinh,cccd,diachi,email,gioitinh,sdt):
     m_khachhang = KhachHang(ho_khach = ho,ten_khach = ten, ngay_sinh = ngaysinh,id_cccd = cccd,dia_chi = diachi,email = email,gioi_tinh = gioitinh,sdt = sdt)
     db.session.add(m_khachhang)

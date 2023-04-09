@@ -8,6 +8,7 @@
 </div>
 {% endif %}
 
+{% if current_user.is_authenticated %}
 <div class="form-style-3 wrapper">
     <label>Danh sách khách hàng trong ngày</label>
     <form method="post">
@@ -15,9 +16,6 @@
 
             <div class="table2">
                 <div class="table-header2">
-                    <div class="header__item2">
-                        <lable id="name" class="filter__link2">STT</lable>
-                    </div>
                     <div class="header__item2">
                         <lable id="wins" class="filter__link2 filter__link--number2">Họ tên</lable>
                     </div>
@@ -32,27 +30,20 @@
                     </div>
                 </div>
                 <div class="table-content2">
+                    {% for c in cr_list %}
                     <div class="table-row2">
-                        <div class="table-data2">Tom</div>
-                        <div class="table-data2">2</div>
-                        <div class="table-data2">0</div>
-                        <div class="table-data2">1</div>
-                        <div class="table-data2">5</div>
+                        <div class="table-data2">{{ c.ten }}</div>
+                        <div class="table-data2">{{ c.gioitinh }}</div>
+                        <div class="table-data2">{{ c.namsinh }}</div>
+                        <div class="table-data2">{{ c.diachi }}</div>
                     </div>
-                    <div class="table-row2">
-                        <div class="table-data2">Tom</div>
-                        <div class="table-data2">2</div>
-                        <div class="table-data2">0</div>
-                        <div class="table-data2">1</div>
-                        <div class="table-data2">5</div>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </form>
 </div>
-
+{% endif %}
 
 <div class="form-style-3 wrapper">
     <label>Đặt lịch hẹn</label>

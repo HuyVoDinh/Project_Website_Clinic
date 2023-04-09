@@ -1,5 +1,5 @@
 from Clinic import app, login
-from flask import Flask, render_template, request, url_for, redirect,session
+from flask import Flask, render_template, request, url_for, redirect,session, jsonify
 import utils
 from flask_login import login_user, logout_user
 
@@ -40,6 +40,7 @@ def user_load(user_id):
 
 @app.route("/medicalregister", methods = ['get', 'post'])
 def medical_register():
+    cr_list = utils.load_current_customer_list()
     err_msg=""
     current_customer_list = utils.number_current_customer_list()
     current_customer_list = 40 - current_customer_list
@@ -65,7 +66,7 @@ def medical_register():
             return redirect(url_for('home'))
         except Exception as ex:
             err_msg = ex
-    return render_template('medical-register.html', size = current_customer_list, err_msg = err_msg)
+    return render_template('medical-register.html', cr_list = cr_list, size = current_customer_list, err_msg = err_msg)
 
 @app.route("/registerdirectly")
 def register_directly():
@@ -89,10 +90,32 @@ def timkiemthuoc():
 
 @app.route('/api/them_thuoc', methods=['post'])
 def them_thuoc():
-    id = ''
-    ten_thuoc = ''
-    gia = ''
+    data = request.json
+    id = str(data.get('id'))
+    ten_thuoc = data.get('name')
+    gia = data.get('gia')
+    soluong = data.get('soLuong')
 
+    import pdb
+    pdb.set_trace()
+
+    donthuoc = session.get('donthuoc')
+    if donthuoc:
+        donthuoc = {}
+
+    if id in donthuoc:
+        donthuoc[id]['soluong'] = donthuoc[id]['soluong'] + 1
+    else:
+        donthuoc[id] ={
+            'id': id,
+            'ten_thuoc': ten_thuoc,
+            'gia': gia,
+            'soluong': soluong
+
+        }
+    session['donthuoc'] = donthuoc
+
+    return jsonify()
 
 if __name__ == "__main__":
     from Clinic.admin import *
