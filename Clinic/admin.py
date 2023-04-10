@@ -8,7 +8,7 @@ from Clinic.models import *
 
 class AuthenticatedAdmin(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.role == Role.ADMIN
+        return current_user.is_authenticated and current_user.vaitro_id == 1
 
 class TaiKhoanView(AuthenticatedAdmin):
     column_display_pk = True
@@ -16,6 +16,13 @@ class TaiKhoanView(AuthenticatedAdmin):
     can_view_details = True
     edit_modal = True
     column_searchable_list = ['ten_nguoi_dung']
+    form_excluded_columns = ['vaiTro']
+    column_labels = {
+        'ten_nguoi_dung': 'Tên Người Dùng',
+        'mat_khau': 'Mật Khẩu',
+        'hinh_anh': 'Hình Đại Diện',
+        'trang_thai': 'Trạng Thái',
+    }
 
 
 class NhanVienView(AuthenticatedAdmin):
@@ -57,7 +64,7 @@ class HoaDonView(AuthenticatedAdmin):
 class MyAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
-        if current_user.is_authenticated and current_user.role == Role.ADMIN:
+        if current_user.is_authenticated and current_user.vaitro_id == 1:
             return self.render('admin/index.html')
         return redirect(url_for('user_login'))
 
