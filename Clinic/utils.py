@@ -24,6 +24,9 @@ def number_current_customer_list():
 def load_current_customer_list():
     return KhachHang.query.filter(KhachHang.lich_kham.__eq__(datetime.date(datetime.now()))).all()
 
+def load_customer_list():
+    return KhachHang.query.all()
+
 def add_examination(ho,ten,ngaysinh,cccd,diachi,email,gioitinh,sdt):
     m_khachhang = KhachHang(ho_khach = ho,ten_khach = ten, ngay_sinh = ngaysinh,id_cccd = cccd,dia_chi = diachi,email = email,gioi_tinh = gioitinh,sdt = sdt)
     db.session.add(m_khachhang)
@@ -39,3 +42,7 @@ def load_medicine(kw = None):
 def load_role():
     return VaiTro.query.filter().all()
 
+
+def check_role(user):
+    if user.vaitro_id == 1:
+        return True

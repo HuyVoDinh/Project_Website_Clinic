@@ -8,9 +8,9 @@
 
         <form method="post" class="p-3 mt-3">
               <div class="box">
-                  <select>
+                  <select id="vaitro" name="vaitro" class="select-field">
                     {% for rl in role_list %}
-                      <option value="{{rl.id}}">{{rl.ten_vai_tro}}</option>
+                      <option value={{rl.id}}>{{rl.ten_vai_tro}}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -31,9 +31,6 @@
                 <h5 color="red">{{err_msg}}</h5>
             </div>
         {% endif %}
-        <div class="text-center fs-6">
-            <a href="#">Forget password?</a> or <a href="#">Sign up</a>
-        </div>
     </div>
 {%endblock%}
 

@@ -2,32 +2,34 @@
 {% block title %}Danh sách khách hàng{%endblock%}
 
 {% block content %}
-<div class="container2">
+<div class="form-style-3 wrapper">
+    <label>Danh Sách Khách Hàng</label>
+	<fieldset>
+	<div class="container2">
+		<div class="table2">
+			<div class="table-header2">
+				<div class="header__item2"><lable id="name" class="filter__link2" >Họ</lable></div>
+				<div class="header__item2"><lable id="wins" class="filter__link2 filter__link--number2" >Tên</lable></div>
+				<div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Giới tính</lable></div>
+				<div class="header__item2"><lable id="draws" class="filter__link2 filter__link--number2" >CCCD</lable></div>
+				<div class="header__item2"><lable id="losses" class="filter__link2 filter__link--number2" >Số điện thoại</lable></div>
+				<div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Địa chỉ</lable></div>
+				<div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Email</lable></div>
 
-	<div class="table2">
-		<div class="table-header2">
-			<div class="header__item2"><lable id="name" class="filter__link2" >STT</lable></div>
-			<div class="header__item2"><lable id="wins" class="filter__link2 filter__link--number2" >Họ tên</lable></div>
-			<div class="header__item2"><lable id="draws" class="filter__link2 filter__link--number2" >Giói tính</lable></div>
-			<div class="header__item2"><lable id="losses" class="filter__link2 filter__link--number2" >Năm sinh</lable></div>
-			<div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Địa chỉ</lable></div>
-		</div>
-		<div class="table-content2">
-			<div class="table-row2">
-				<div class="table-data2">Tom</div>
-				<div class="table-data2">2</div>
-				<div class="table-data2">0</div>
-				<div class="table-data2">1</div>
-				<div class="table-data2">5</div>
 			</div>
-			<div class="table-row2">
-				<div class="table-data2">Tom</div>
-				<div class="table-data2">2</div>
-				<div class="table-data2">0</div>
-				<div class="table-data2">1</div>
-				<div class="table-data2">5</div>
+			<div class="table-content2">
+				{% for item in cus_list %}
+				<div class="table-row2">
+					<div class="table-data2">{{ item.ho_khach }}</div>
+					<div class="table-data2">{{ item.ten_khach }}</div>
+					<div class="table-data2">{{ item.gioi_tinh }}</div>
+					<div class="table-data2">{{ item.id_cccd }}</div>
+					<div class="table-data2">{{ item.sdt }}</div>
+					<div class="table-data2">{{ item.dia_chi }}</div>
+					<div class="table-data2">{{ item.email }}</div>
+				</div>
+				{% endfor %}
 			</div>
-
 		</div>
 	</div>
 </div>

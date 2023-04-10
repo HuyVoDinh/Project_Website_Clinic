@@ -16,9 +16,13 @@ def user_login():
         password = request.form.get('password')
 
         user = utils.check_login(username=username, password = password)
-        if user:
+        roles = request.form.get('vaitro')
+        if str(user.vaitro_id) == roles:
             login_user(user=user)
-            return redirect(url_for('home'))
+            if utils.check_role(user):
+                return redirect('/admin')
+            else:
+                return redirect(url_for('home'))
         else:
             err_msg = "Sai thông tin tài khoản hoặc mật khẩu"
 
@@ -31,8 +35,9 @@ def user_logout():
 
 @app.route('/customerlist')
 def customer_list():
-    # current_customer_list = utils.load_current_customer_list()
-    return render_template('customer-list.html', )
+    cus_list = utils.load_customer_list()
+
+    return render_template('customer-list.html', cus_list=cus_list)
 
 @login.user_loader
 def user_load(user_id):
