@@ -5,33 +5,31 @@
   <div class="form-style-3 wrapper">
     <label>Hóa đơn</label>
     <form method="get">
-      <fieldset><legend>Nhập thông tin mã phiếu khám bệnh</legend>
-      <label for="field1"><span>Mã phiếu khám bệnh <span class="required">*</span></span><input type="text" class="input-field" name="maPhieu" value="" /><span> </span><input class="btn mt-3" type="submit" value="Xác nhận" /></label>
-        <label></label>
+      <fieldset>
+          <legend>Nhập thông tin mã phiếu khám bệnh</legend>
+          <label for="field1">
+              <span>Mã phiếu khám bệnh <span class="required">*</span></span>
+              <input type="text" class="input-field" name="maPhieu" value="" />
+              <input class="btn mt-3" type="submit" value="Xác nhận" />
+          </label>
       </fieldset>
     </form>
   </div>
 
-
-{% if bill == -1 %}
-    <div class="alert alert-warning" role="alert">
-        Mã Phiếu Khám Không tồn tại
-    </div>
+{% if phieuKham == None %}
 {% else %}
-    <div class="form-style-3 wrapper">
+<div class="form-style-3 wrapper">
         <label>Thông tin hóa đơn</label>
         <form>
           <fieldset><legend>Thông tin chi tiết hóa đơn từ bác sỹ</legend>
-                <label for="field1"><span>Khách hàng</span><label>  </label></label>
-                <label for="field2"><span>Ngày sinh</span><label> {{ bill.khachHang_id.ngay_sinh }} </label></label>
-                <label for="field3"><span>Giới tính</span><label> {{bill.khachHang_id.gioi_tinh}}  </label></label>
-                <label for="field4"><span>CCCD</span><label> {{bill.khachHang_id.id_cccd}}  </label></label>
-                <label for="field5"><span>Mã Phiếu Khám</span><label> {{bill.id}} </label></label>
-                <label for="field6"><span>Mã Bác Sĩ</span><label> {{bill.bs_id}} </label></label>
-                <label for="field7"><span>Bác Sĩ Khám</span><label> {{bill.bs_id.nv_id.ten_nv}} </label></label>
-                <label for="field8"><span>Mã Y tá</span><label> {{bill.khachHang_id}} </label></label>
-                <label for="field9"><span>Thanh Toán</span><label> {{bill}}  </label></label>
-                <label for="field10"><span>Ngày Tạo</span><label> {{bill}} </label></label>
+                <label for="field1"><span>Khách hàng</span><label> {{ phieuKham.khachHang_id.ten_khach }} </label></label>
+                <label for="field2"><span>Ngày sinh</span><label> {{ phieuKham.khachHang_id.ngay_sinh }} </label></label>
+                <label for="field3"><span>Giới tính</span><label> {{phieuKham.khachHang_id.gioi_tinh}}  </label></label>
+                <label for="field4"><span>CCCD</span><label> {{phieuKham.khachHang_id.id_cccd}}  </label></label>
+                <label for="field5"><span>Mã Phiếu Khám</span><label> {{phieuKham.id}} </label></label>
+                <label for="field6"><span>Mã Bác Sĩ</span><label> {{phieuKham.bs_id}} </label></label>
+                <label for="field7"><span>Bác Sĩ Khám</span><label> {{phieuKham.bs_id}} </label></label>
+                <label for="field8"><span>Ngày Tạo</span><label> {{phieuKham.id}} </label></label>
           </fieldset>
         </form>
     </div>
@@ -51,23 +49,16 @@
                 <div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Tổng tiền</lable></div>
             </div>
             <div class="table-content2">
+                {% for thuoc in phieuKham.chi_tiet_phieu_kham %}
                 <div class="table-row2">
                     <div class="table-data2">Tom</div>
-                    <div class="table-data2">2</div>
-                    <div class="table-data2">0</div>
-                    <div class="table-data2">1</div>
-                    <div class="table-data2">5</div>
-                    <div class="table-data2">5</div>
+                    <div class="table-data2">{{thuoc.thuoc_id.ten_thuoc}}</div>
+                    <div class="table-data2">{{thuoc.id}}</div>
+                    <div class="table-data2">{{thuoc.id}}</div>
+                    <div class="table-data2">{{thuoc.id}}</div>
+                    <div class="table-data2">{{thuoc.id}}</div>
                 </div>
-                <div class="table-row2">
-                    <div class="table-data2">Tom</div>
-                    <div class="table-data2">2</div>
-                    <div class="table-data2">0</div>
-                    <div class="table-data2">1</div>
-                    <div class="table-data2">5</div>
-                    <div class="table-data2">5</div>
-                </div>
-
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -87,6 +78,6 @@
           </fieldset>
         </form>
       </div>
-
 {% endif %}
+
 {%endblock%}

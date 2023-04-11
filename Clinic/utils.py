@@ -48,4 +48,4 @@ def check_role(user):
 
 
 def get_phieukham_by_id(phieukham_id):
-    return PhieuKhamBenh.query.filter(str(PhieuKhamBenh.id) == phieukham_id).first()
+    return PhieuKhamBenh.query.filter(PhieuKhamBenh.id == phieukham_id).first()
