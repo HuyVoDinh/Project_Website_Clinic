@@ -4,84 +4,89 @@
 {% block content %}
   <div class="form-style-3 wrapper">
     <label>Hóa đơn</label>
-    <form>
+    <form method="get">
       <fieldset><legend>Nhập thông tin mã phiếu khám bệnh</legend>
-      <label for="field1"><span>Mã phiếu khám bệnh <span class="required">*</span></span><input type="text" class="input-field" name="cccd" value="" /><span> </span><input class="btn mt-3" type="submit" value="Xác nhận" /></label>
+      <label for="field1"><span>Mã phiếu khám bệnh <span class="required">*</span></span><input type="text" class="input-field" name="maPhieu" value="" /><span> </span><input class="btn mt-3" type="submit" value="Xác nhận" /></label>
         <label></label>
       </fieldset>
     </form>
   </div>
 
 
+{% if bill == -1 %}
+    <div class="alert alert-warning" role="alert">
+        Mã Phiếu Khám Không tồn tại
+    </div>
+{% else %}
+    <div class="form-style-3 wrapper">
+        <label>Thông tin hóa đơn</label>
+        <form>
+          <fieldset><legend>Thông tin chi tiết hóa đơn từ bác sỹ</legend>
+                <label for="field1"><span>Khách hàng</span><label>  </label></label>
+                <label for="field2"><span>Ngày sinh</span><label> {{ bill.khachHang_id.ngay_sinh }} </label></label>
+                <label for="field3"><span>Giới tính</span><label> {{bill.khachHang_id.gioi_tinh}}  </label></label>
+                <label for="field4"><span>CCCD</span><label> {{bill.khachHang_id.id_cccd}}  </label></label>
+                <label for="field5"><span>Mã Phiếu Khám</span><label> {{bill.id}} </label></label>
+                <label for="field6"><span>Mã Bác Sĩ</span><label> {{bill.bs_id}} </label></label>
+                <label for="field7"><span>Bác Sĩ Khám</span><label> {{bill.bs_id.nv_id.ten_nv}} </label></label>
+                <label for="field8"><span>Mã Y tá</span><label> {{bill.khachHang_id}} </label></label>
+                <label for="field9"><span>Thanh Toán</span><label> {{bill}}  </label></label>
+                <label for="field10"><span>Ngày Tạo</span><label> {{bill}} </label></label>
+          </fieldset>
+        </form>
+    </div>
 
-<div class="form-style-3 wrapper">
-    <label>Thông tin hóa đơn</label>
-      <fieldset><legend>Thông tin chi tiết hóa đơn từ bác sỹ</legend>
-        <label for="field1"><span>Khách hàng</span><label> Mã khách hàng </label></label>
-        <label for="field2"><span>Ngày sinh</span><label> Mã khách hàng </label></label>
-        <label for="field3"><span>Giới tính</span><label> Mã khách hàng </label></label>
-        <label for="field4"><span>CCCD</span><label> Mã khách hàng </label></label>
-        <label for="field5"><span>Mã phiếu khám bệnh</span> Mã khách hàng </label>
-        <label for="field6"><span>Bác sỹ khám bệnh</span><label> Mã khách hàng </label></label>
-        <label for="field7"><span>Mã nhân viên (bác sỹ)</span><label> Mã khách hàng </label></label>
-        <label for="field8"><span>Y tá thanh toán</span><label> Mã khách hàng </label></label>
-        <label for="field9"><span>Mã nhân viên (y tá)</span><label> Mã khách hàng </label></label>
-        <label for="field10"><span>Ngày tạo hóa đơn</span><label> Mã khách hàng </label></label>
+    <div class="form-style-3 wrapper">
+        <label>Danh sách thuốc</label>
+          <fieldset><legend>Thông tin chi tiết hóa đơn từ bác sỹ</legend>
+            <div class="container2">
 
-      </fieldset>
-  </div>
+        <div class="table2">
+            <div class="table-header2">
+                <div class="header__item2"><lable id="name" class="filter__link2" >STT</lable></div>
+                <div class="header__item2"><lable id="wins" class="filter__link2 filter__link--number2" >Tên thuốc</lable></div>
+                <div class="header__item2"><lable id="draws" class="filter__link2 filter__link--number2" >Đơn vị</lable></div>
+                <div class="header__item2"><lable id="losses" class="filter__link2 filter__link--number2" >Số lượng</lable></div>
+                <div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Đơn giá</lable></div>
+                <div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Tổng tiền</lable></div>
+            </div>
+            <div class="table-content2">
+                <div class="table-row2">
+                    <div class="table-data2">Tom</div>
+                    <div class="table-data2">2</div>
+                    <div class="table-data2">0</div>
+                    <div class="table-data2">1</div>
+                    <div class="table-data2">5</div>
+                    <div class="table-data2">5</div>
+                </div>
+                <div class="table-row2">
+                    <div class="table-data2">Tom</div>
+                    <div class="table-data2">2</div>
+                    <div class="table-data2">0</div>
+                    <div class="table-data2">1</div>
+                    <div class="table-data2">5</div>
+                    <div class="table-data2">5</div>
+                </div>
 
-<div class="form-style-3 wrapper">
-    <label>Danh sách thuốc</label>
-      <fieldset><legend>Thông tin chi tiết hóa đơn từ bác sỹ</legend>
-        <div class="container2">
-
-	<div class="table2">
-		<div class="table-header2">
-			<div class="header__item2"><lable id="name" class="filter__link2" >STT</lable></div>
-			<div class="header__item2"><lable id="wins" class="filter__link2 filter__link--number2" >Tên thuốc</lable></div>
-			<div class="header__item2"><lable id="draws" class="filter__link2 filter__link--number2" >Đơn vị</lable></div>
-			<div class="header__item2"><lable id="losses" class="filter__link2 filter__link--number2" >Số lượng</lable></div>
-			<div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Đơn giá</lable></div>
-			<div class="header__item2"><lable id="total" class="filter__link2 filter__link--number2" >Tổng tiền</lable></div>
-		</div>
-		<div class="table-content2">
-			<div class="table-row2">
-				<div class="table-data2">Tom</div>
-				<div class="table-data2">2</div>
-				<div class="table-data2">0</div>
-				<div class="table-data2">1</div>
-				<div class="table-data2">5</div>
-				<div class="table-data2">5</div>
-			</div>
-			<div class="table-row2">
-				<div class="table-data2">Tom</div>
-				<div class="table-data2">2</div>
-				<div class="table-data2">0</div>
-				<div class="table-data2">1</div>
-				<div class="table-data2">5</div>
-				<div class="table-data2">5</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-      </fieldset>
-  </div>
-
-
-<div class="form-style-3 wrapper">
-    <label>Thanh toán hóa đơn</label>
-    <form>
-      <fieldset><legend>Số tiền khách hàng cần phải thanh toán</legend>
-        <label for="field1"><span>Khách hàng</span><label> Mã khách hàng </label></label>
-        <label for="field2"><span>Tiền khám bệnh</span><label> Mã khách hàng </label></label>
-        <label for="field3"><span>Tổng tiền cần thanh </span><label> Mã khách hàng </label></label>
+            </div>
+        </div>
+    </div>
+          </fieldset>
+      </div>
 
 
-        <label><span> </span><input class="btn mt-3" type="submit" value="Thanh toán" /></label>
-        <a class="" href="{{url_for('home')}}">Thoát</a>
-      </fieldset>
-    </form>
-  </div>
+    <div class="form-style-3 wrapper">
+        <label>Thanh toán hóa đơn</label>
+        <form>
+          <fieldset><legend>Số tiền khách hàng cần phải thanh toán</legend>
+              <label for="field1"><span>Khách hàng</span><label> Mã khách hàng </label></label>
+              <label for="field2"><span>Tiền Thuốc</span><label> Mã khách hàng </label></label>
+              <label for="field3"><span>Tiền khám</span><label> Mã khách hàng </label></label>
+              <label><span> </span><input class="btn mt-3" type="submit" value="Thanh toán" /></label>
+              <a class="" href="{{url_for('home')}}">Thoát</a>
+          </fieldset>
+        </form>
+      </div>
+
+{% endif %}
 {%endblock%}

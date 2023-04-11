@@ -79,7 +79,12 @@ def register_directly():
 
 @app.route("/paybill")
 def paybill():
-    return render_template('pay-bill.html')
+    id_phieukham = request.form.get('maPhieu')
+    bill = utils.get_phieukham_by_id(id_phieukham)
+    if bill is None:
+        bill = -1
+
+    return render_template('pay-bill.html', bill=bill, maPhieu=id_phieukham)
 
 @app.route("/taophieukham",  methods = ['get', 'post'])
 def taophieukham():

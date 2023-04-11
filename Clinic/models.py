@@ -8,13 +8,10 @@ from flask_login import UserMixin
 
 # category_id = Column(Integer,ForeignKey(Account.id))
 
-class BaseModel(db.Model):
-    __abstract__ = True
-    id = Column(Integer, primary_key=True, autoincrement=True)
-
-class NhanVien(BaseModel):
+class NhanVien(db.Model):
     # __tablename__ = 'nhanvien'
     # nv_id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     ngay_lam_viec = Column(DateTime, default=datetime.now())
     kinh_nghiem = Column(Float, default=0)
     chuc_vu = Column(String(255), nullable=False)
@@ -26,7 +23,6 @@ class NhanVien(BaseModel):
     dia_chi = Column(String(255), nullable=False)
     email = Column(String(255))
     gioi_tinh = Column(Boolean, default=True)
-    #taikhoan = relationship('TaiKhoan', backref='NhanVien', lazy=True)
     yTa = relationship('YTa', backref='NhanVien', lazy=True)
     thuNgan = relationship('ThuNgan', backref='NhanVien', lazy=True)
     qtv = relationship('QTV', backref='NhanVien', lazy=True)
@@ -35,20 +31,23 @@ class NhanVien(BaseModel):
         return self.name
 
 
-class BacSi(BaseModel):
+class BacSi(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     bs_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
 
     def __str__(self):
         return self.name
 
 
-class YTa(BaseModel):
+class YTa(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     yt_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
     def __str__(self):
         return self.name
 
 
-class ThuNgan(BaseModel):
+class ThuNgan(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     tn_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
     hoadon = relationship('HoaDonThuoc', backref='thungan', lazy=True)
 
@@ -56,14 +55,16 @@ class ThuNgan(BaseModel):
          return self.name
 #
 #
-class QTV(BaseModel):
+class QTV(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     qtv_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
     dsquydinh = relationship('QuyDinh', backref='qtv', lazy=True)
 
     def __str__(self):
         return self.name
 
-class VaiTro(BaseModel):
+class VaiTro(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     #VaiTro_id = Column(Integer, primary_key=True, autoincrement=True)
     ten_vai_tro = Column(String(30))
     taikhoan = relationship('TaiKhoan', backref='vaitro', lazy=True)
@@ -72,7 +73,8 @@ class VaiTro(BaseModel):
         return self.name
 
 
-class TaiKhoan(BaseModel, UserMixin):
+class TaiKhoan(db.Model, UserMixin):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     #taikhoan_id = Column(Integer, primary_key=True, autoincrement=True)
     ten_nguoi_dung = Column(String(30), nullable=False)
     mat_khau = Column(String(30), nullable=False)
@@ -80,13 +82,13 @@ class TaiKhoan(BaseModel, UserMixin):
     trang_thai = Column(Boolean, default=True)
     vaitro_id = Column(Integer, ForeignKey(VaiTro.id), nullable=False)
     # nhanvien = relationship('NhanVien', backref='TaiKhoan', lazy=True)
-    #nhanvien_id = Column(Integer, ForeignKey(NhanVien.id), nullable=False)
 
     def __str__(self):
         return self.name
 
 
-class LoaiThuoc(BaseModel):
+class LoaiThuoc(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     # loaithuoc_id = Column(Integer, primary_key=True, autoincrement=True)
     ten_loai_thuoc = Column(String(100), nullable=False)
     thuoc_id = relationship('Thuoc', backref='LoaiThuoc', lazy=True)
@@ -95,7 +97,8 @@ class LoaiThuoc(BaseModel):
         return self.name
 
 
-class Thuoc(BaseModel):
+class Thuoc(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     # thuoc_id = Column(Integer, primary_key=True, autoincrement=True)
     ten_thuoc = Column(String(30), nullable=False)
     so_luong = Column(Integer, default=0)
@@ -111,7 +114,8 @@ class Thuoc(BaseModel):
         return self.name
 
 
-class KhachHang(BaseModel):
+class KhachHang(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     # khach_id = Column(Integer, primary_key=True, autoincrement=True)
     ho_khach = Column(String(30), nullable=False)
     ten_khach = Column(String(30), nullable=False)
@@ -122,6 +126,7 @@ class KhachHang(BaseModel):
     gioi_tinh = Column(Boolean, default=True)
     sdt = Column(String(50))
     lich_kham = Column(DateTime, default=datetime.date(datetime.now()))
+    phieukham = relationship('PhieuKhamBenh', backref='khachHang', lazy=True)
     # tailieu = relationship('TaiLieu', backref='khachhang', lazy=True)
 
     def __str__(self):
@@ -129,8 +134,8 @@ class KhachHang(BaseModel):
 
 
 
-class TaiLieu(BaseModel):
-    # id = Column(Integer, primary_key=True, autoincrement=True)
+class TaiLieu(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     ngay_tao = Column(DateTime, default=datetime.now())
     loai_tai_lieu = Column(String(100))
     khachhang_id = Column(Integer, ForeignKey(KhachHang.id), nullable=False)
@@ -139,11 +144,12 @@ class TaiLieu(BaseModel):
         return self.name
 
 
-class PhieuKhamBenh(BaseModel):
-    # id = Column(Integer, ForeignKey('TaiLieu.id'), primary_key=True)
+class PhieuKhamBenh(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     trieu_chung = Column(Text)
     chan_doan = Column(Text)
     bs_id = Column(Integer, ForeignKey(BacSi.id))
+    khachHang_id = Column(Integer, ForeignKey(KhachHang.id), nullable=False)
     hoadon = relationship('HoaDonThuoc', backref='phieukhambenh', lazy=True)
     chi_tiet_phieu_kham = relationship('ChiTietPhieuKham', backref='phieuKhamBenh', lazy=True)
 
@@ -162,7 +168,8 @@ class ChiTietPhieuKham(db.Model):
         return self.name
 
 
-class HoaDonThuoc(BaseModel):
+class HoaDonThuoc(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     gia_thuoc = Column(Float, default=0, nullable=False)
     gia_kham_benh = Column(Float, default=0, nullable=False)
     tong_hoa_don = Column(Float, default=0, nullable=False)
@@ -173,7 +180,8 @@ class HoaDonThuoc(BaseModel):
         return self.name
 
 
-class QuyDinh(BaseModel):
+class QuyDinh(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
     ten = Column(String(50), nullable=False)
     mo_ta = Column(String(255))
     ngay_tao = Column(DateTime, default=datetime.now())
@@ -185,5 +193,6 @@ class QuyDinh(BaseModel):
 
 
 if __name__ == '__main__':
-    db.create_all()
+    with app.app_context():
+        db.create_all()
 

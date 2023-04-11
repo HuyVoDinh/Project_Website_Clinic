@@ -38,7 +38,6 @@ def load_medicine(kw = None):
         return Thuoc.query.filter(Thuoc.ten_thuoc.contains(kw))
 
 
-
 def load_role():
     return VaiTro.query.filter().all()
 
@@ -46,3 +45,7 @@ def load_role():
 def check_role(user):
     if user.vaitro_id == 1:
         return True
+
+
+def get_phieukham_by_id(phieukham_id):
+    return PhieuKhamBenh.query.filter(str(PhieuKhamBenh.id) == phieukham_id).first()
